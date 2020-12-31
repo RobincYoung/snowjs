@@ -25,6 +25,7 @@ var snowjs={
 				//contx.stroke();
 				if(dims.width*(dims.actualBoundingBoxAscent + dims.actualBoundingBoxDescent)==0){break}
 				snowjs.carr.push({cnv:newc, s:i, w:dims.width, h:dims.actualBoundingBoxAscent + dims.actualBoundingBoxDescent});
+				snowjs.carr.sort(function(a,b){if (a.scale<b.scale){return -1} if (a.scale>b.scale){return 1}return 0});
 			}
 		});
 	},
