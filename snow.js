@@ -8,7 +8,7 @@ var snowjs={
 	ydir:1,
 	initfl:function(){
 		this.carr=[];
-		let fonts=Array("serif", "sans-serif", "cursive", "fantasy", "Helvetica, Arial, sans-serif", "monospace","Courier, monospace","Times, Times New Roman, Georgia, serif");;
+		let fonts=Array("serif", "sans-serif", "cursive", "Helvetica, Arial, sans-serif", "monospace","Courier, monospace","Times, Times New Roman, Georgia, serif");;
 		this.charlist.forEach(function(char,id,charlist){
 			for (i=1;i<7;i++){
 				let fi=Math.floor(Math.random() * fonts.length);
