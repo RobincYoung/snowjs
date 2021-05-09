@@ -8,16 +8,18 @@ var snowjs={
 	ydir:1,
 	initfl:function(){
 		this.carr=[];
+		let fonts=Array("serif", "sans-serif", "cursive", "fantasy", "Helvetica, Arial, sans-serif", "monospace","Courier, monospace","Times, Times New Roman, Georgia, serif");;
 		this.charlist.forEach(function(char,id,charlist){
 			for (i=1;i<7;i++){
-				snowjs.cnv.font="normal 400 "+16*i+"px courier";
+				let fi=Math.floor(Math.random() * fonts.length);
+				snowjs.cnv.font="normal 400 "+16*i+"px "+fonts[fi];
 				let dims = snowjs.cnv.measureText(char);
 				var newc = document.createElement('canvas');
 				newc.width=dims.width;
 				newc.height=dims.actualBoundingBoxAscent + dims.actualBoundingBoxDescent;
 				let contx = newc.getContext("2d");
 				contx.fillStyle = snowjs.color;
-				contx.font="normal 400 "+16*i+"px courier";
+				contx.font="normal 400 "+16*i+"px "+fonts[fi];
 				contx.fillText(char,0,dims.actualBoundingBoxAscent);
 				
 				//contx.beginPath();
@@ -29,7 +31,7 @@ var snowjs={
 			}
 		});
 	},
-	init:function(charas="❄,❅,❆",delay=500,yspeed=30,colour="#99ccff"){//create canvas
+	init:function(charas="❄️,❄,❅,❆",delay=500,yspeed=30,colour="#99ccff"){//create canvas
 		this.ydir=yspeed;
 		this.color=colour;
 		if(!CSS.supports("pointer-events","none")){alert("warning: low flying unicode is blocking your clicks, please update your browser.")}
