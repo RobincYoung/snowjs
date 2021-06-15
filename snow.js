@@ -8,7 +8,7 @@ var snowjs={
 	ydir:1,
 	initfl:function(){
 		this.carr=[];
-		let fonts=Array("serif", "sans-serif", "cursive", "Helvetica, Arial, sans-serif", "monospace","Courier, monospace","Times, Times New Roman, Georgia, serif");;
+		let fonts=Array("serif", "sans-serif", "cursive", "Helvetica, Arial, sans-serif", "monospace","Courier, monospace","Times, Times New Roman, Georgia, serif","Twemoji Mozilla,-apple-system, BlinkMacSystemFont, Segoe UI, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif");;
 		this.charlist.forEach(function(char,id,charlist){
 			for (i=1;i<7;i++){
 				let fi=Math.floor(Math.random() * fonts.length);
@@ -25,7 +25,7 @@ var snowjs={
 				//contx.beginPath();
 				//contx.rect(0, 0, newc.width, newc.height);
 				//contx.stroke();
-				if(dims.width*(dims.actualBoundingBoxAscent + dims.actualBoundingBoxDescent)==0){break}
+				if(dims.width*(dims.actualBoundingBoxAscent + dims.actualBoundingBoxDescent)==0){fonts=fonts.map(function(a){return "Noto Color Emoji,"+a});console.log("firefox workaround");continue}
 				snowjs.carr.push({cnv:newc, s:i, w:dims.width, h:dims.actualBoundingBoxAscent + dims.actualBoundingBoxDescent});
 				snowjs.carr.sort(function(a,b){if (a.scale<b.scale){return -1} if (a.scale>b.scale){return 1}return 0});
 			}
