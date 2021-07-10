@@ -25,11 +25,24 @@ var snowjs={
 				//contx.beginPath();
 				//contx.rect(0, 0, newc.width, newc.height);
 				//contx.stroke();
-				if(dims.width*(dims.actualBoundingBoxAscent + dims.actualBoundingBoxDescent)==0){fonts=fonts.map(function(a){return "Noto Color Emoji,"+a});console.log("firefox workaround");continue}
+				if(dims.width*(dims.actualBoundingBoxAscent + dims.actualBoundingBoxDescent)==0){continue}
 				snowjs.carr.push({cnv:newc, s:i, w:dims.width, h:dims.actualBoundingBoxAscent + dims.actualBoundingBoxDescent});
-				snowjs.carr.sort(function(a,b){if (a.scale<b.scale){return -1} if (a.scale>b.scale){return 1}return 0});
 			}
 		});
+		snowjs.carr.sort(function(a,b){if (a.scale<b.scale){return -1} if (a.scale>b.scale){return 1}return 0});
+		//firefox workaround for: https://bugzilla.mozilla.org/show_bug.cgi?id=1692791
+		//draws solid circle
+		if (snowjs.carr.length==0){
+			var c = document.createElement('canvas');
+			c.width=10;
+			c.height=10;
+			var ctx = c.getContext("2d");
+			ctx.fillStyle = snowjs.color;
+			ctx.beginPath();
+			ctx.arc(5, 5, 5, 0, 2 * Math.PI);
+			ctx.fill();
+			snowjs.carr.push({cnv:c, s:2, w:10, h:10});
+		}
 	},
 	init:function(charas="❄️,❄,❅,❆",delay=500,yspeed=30,colour="#99ccff"){//create canvas
 		this.ydir=yspeed;
