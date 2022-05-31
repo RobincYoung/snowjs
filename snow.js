@@ -8,7 +8,7 @@ var snowjs={
 	ydir:1,
 	initfl:function(){
 		this.carr=[];
-		let fonts=Array("serif", "sans-serif", "cursive", "Helvetica, Arial, sans-serif", "monospace","Courier, monospace","Times, Times New Roman, Georgia, serif","Twemoji Mozilla,-apple-system, BlinkMacSystemFont, Segoe UI, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif");;
+		let fonts=Array("serif", "sans-serif", "cursive", "Helvetica, Arial, sans-serif", "monospace","Courier, monospace","Times, Times New Roman, Georgia, serif","system-ui");
 		this.charlist.forEach(function(char,id,charlist){
 			for (i=1;i<7;i++){
 				let fi=Math.floor(Math.random() * fonts.length);
@@ -21,7 +21,6 @@ var snowjs={
 				contx.fillStyle = snowjs.color;
 				contx.font="normal 400 "+16*i+"px "+fonts[fi];
 				contx.fillText(char,0,dims.actualBoundingBoxAscent);
-				
 				//contx.beginPath();
 				//contx.rect(0, 0, newc.width, newc.height);
 				//contx.stroke();
@@ -44,7 +43,7 @@ var snowjs={
 			snowjs.carr.push({cnv:c, s:2, w:10, h:10});
 		}
 	},
-	init:function(charas="❄️,❄,❅,❆",delay=500,yspeed=30,colour="#99ccff"){//create canvas
+	init:function(charas="❄️,❄,❅,❆",delay=500,yspeed=30,colour="#ffffff"){//create canvas
 		this.ydir=yspeed;
 		this.color=colour;
 		if(!CSS.supports("pointer-events","none")){alert("warning: low flying unicode is blocking your clicks, please update your browser.")}
@@ -91,6 +90,12 @@ var snowjs={
 			height:randchar.h,
 			wave:0
 		};
+		for (i = 0; i < this.farr.length; i++) {
+			if ((this.farr[i].scale > flake.scale)){
+				this.farr.splice(i + 1, 0, flake);
+				return;
+			}
+		}
 		this.farr.push(flake);
 	},
 	fmove:function(val,index,arr){//called on each flake
@@ -103,7 +108,7 @@ var snowjs={
 		this.farr[index]=val;
 	},
 	fdraw:function(f,index,arr){//called on each flake
-		this.cnv.drawImage(this.carr[f.cari].cnv, f.x+(Math.sin(f.wave)*f.scale*1.2), f.y);
+		this.cnv.drawImage(this.carr[f.cari].cnv, Math.round(f.x+(Math.sin(f.wave)*f.scale*1.2)), Math.round(f.y));
 	},
 	draw:function(){
 		this.addbool=true;
